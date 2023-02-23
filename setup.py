@@ -16,7 +16,12 @@ with open('HISTORY.rst') as history_file:
 #                 'matplotlib>=3.0.2',
 #                 'seaborn>=0.11',
 #                 'statsmodels>=0.13']
-requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0',
+                'numpy>=1.19',
+                'pandas>=1.0',
+                'matplotlib>=3.0.2',
+                'seaborn>=0.11',
+                'statsmodels>=0.13']
 
 
 test_requirements = ['pytest>=3']
