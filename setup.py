@@ -4,15 +4,20 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['numpy>=1.19',
+                'scipy>=1.7',
+                'pandas>=1.0',
+                'matplotlib>=3.0.2',
+                'seaborn>=0.11',
+                'statsmodels>=0.13']
 
-test_requirements = ['pytest>=3', ]
+test_requirements = ['pytest>=3']
 
 setup(
     author="Toomas Erik Anijärv",
