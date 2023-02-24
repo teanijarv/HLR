@@ -7,7 +7,7 @@ HLR is a simple Python package for running hierarchical regression. It was creat
 It is built to work with Pandas dataframes, uses SciPy and statsmodels for all statistics and regression functions, and runs diagnostic tests for testing assumptions while plotting figures with matplotlib and seaborn.
 
 ## Installation
-HLR is meant to be used with Python 3.x and has been tested on Python 3.6-3.9.
+HLR is meant to be used with Python 3.x and has been tested on Python 3.7-3.9.
 
 #### Dependencies
 - [NumPy](https://numpy.org/)
@@ -33,7 +33,7 @@ An example Jupyter Notebook can be found in 'example' subfolder with a sample da
 
 ```python
 import pandas as pd
-import hlr
+import HLR
 
 nba = pd.read_csv('example/NBA_train.csv')
 
@@ -51,9 +51,9 @@ X_names = [['points'],
 y = nba[['W']]
 
 # Create a HLR model with diagnostic tests, run and save the results
-hlr_model = hlr.HLR(diagnostics=True, showfig=True, save_folder='results', verbose=True)
-model_results, reg_models = hlr_model.run(X=X, X_names=X_names, y=y)
-hlr_model.save_results(filename='nba_results', show_results=True)
+model = HLR.HLR_model(diagnostics=True, showfig=True, save_folder='results', verbose=True)
+model_results, reg_models = model.run(X=X, X_names=X_names, y=y)
+model.save_results(filename='nba_results', show_results=True)
 ```
 OUTPUT (without figures):
 |   | Step |                           Predictors | N (observations) | DF (residuals) | DF (model) | R-squared |   F-value |  P-value (F) |           SSE |     SSTO |  MSE (model) | MSE (residuals) | MSE (total) |                                        Beta coefs |                             P-values (beta coefs) |                       Failed assumptions (check!) | R-squared change | F-value change | P-value (F change) |
@@ -70,6 +70,10 @@ Visit the documentation for more information.
 HLR was created by [Toomas Erik Anijärv](https://www.toomaserikanijarv.com) using original code by [Rory Boyle](https://github.com/rorytboyle). The package is maintained by Toomas during his spare time, thereby contributions are more than welcome!
 
 This program is provided with no warranty of any kind and it is still under heavy development. However, this code has been checked and validated against multiple same analyses conducted in SPSS.
+
+#### To-do
+- Documentation
+- More thorough testing
 
 #### Contributors
 [Toomas Erik Anijärv](https://github.com/teanijarv)
