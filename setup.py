@@ -17,7 +17,7 @@ with open('HISTORY.rst') as history_file:
 #                 'seaborn>=0.11',
 #                 'statsmodels>=0.13']
 requirements = ['Click>=7.0',
-                'scipy>=1.10.1',
+                'scipy>=1.7.3',
                 'pandas>=1.4.4',
                 'matplotlib>=3.5.2',
                 'seaborn>=0.11',
