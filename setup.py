@@ -41,6 +41,7 @@ setup(
     },
     install_requires=requirements,
     license="GNU General Public License v3",
+    long_description_content_type='text/markdown',
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='HLR',
