@@ -9,7 +9,7 @@ Rory Boyle rorytboyle@gmail.com github.com/rorytboyle
 import numpy as np
 import pandas as pd
 import scipy as scipy
-from IPython.display import display
+# from IPython.display import display
 
 from HLR import hierarchical_regression
 
@@ -153,7 +153,7 @@ class HLR_model():
         if not self.has_results:
             raise ValueError("Do not have results to export.")
         if show_results==True:
-            display(self.model_results) # change to print if necessary
+            print(self.model_results) # change to print if necessary
         
         self.model_results.to_excel(self.save_folder+'/'+filename+'.xlsx')
 
