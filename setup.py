@@ -12,7 +12,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = ['Click>=7.0',
                 'scipy>=1.7.3',
-                'pandas>=1.0.0',
+                'pandas>=1.3.5',
                 'matplotlib>=3.5.2',
                 'seaborn>=0.11',
                 'statsmodels>=0.13']
@@ -32,7 +32,6 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10'
     ],
     description="HLR - Hierarchical Linear Regression for Python",
     entry_points={
