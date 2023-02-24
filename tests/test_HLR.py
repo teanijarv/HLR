@@ -6,7 +6,9 @@ import pytest
 
 from click.testing import CliRunner
 
-from HLR import HLR
+from HLR import diagnostic_tests
+from HLR import hierarchical_regression
+from HLR import model
 from HLR import cli
 
 
