@@ -72,6 +72,7 @@ HLR was created by [Toomas Erik Anijärv](https://www.toomaserikanijarv.com) usi
 This program is provided with no warranty of any kind and it is still under heavy development. However, this code has been checked and validated against multiple same analyses conducted in SPSS.
 
 #### To-do
+Would be great if someone with more experience with packages would contribute with testing and the whole deployment process. Also, if someone would want to write documentation, that would be amazing.
 - Documentation
 - More thorough testing
 
