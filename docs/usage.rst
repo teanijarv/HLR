@@ -2,6 +2,8 @@
 Usage
 =====
 
+See GitHub repository for the example dataset and Jupyter Notebook.
+
 To use HLR - Hierarchical Linear Regression in a project::
 
     import pandas as pd
