@@ -2,7 +2,7 @@
 
 [![image](https://img.shields.io/pypi/v/HLR.svg)](https://pypi.python.org/pypi/HLR) [![image](https://img.shields.io/travis/teanijarv/HLR.svg)](https://travis-ci.com/teanijarv/HLR) [![Documentation Status](https://readthedocs.org/projects/hlr-hierarchical-linear-regression/badge/?version=latest)](https://hlr-hierarchical-linear-regression.readthedocs.io/en/latest/?version=latest)
 
-HLR is a simple Python package for running hierarchical regression. It was created because there wasn't any good options to run hierarchical regressopm without using programs like SPSS.
+HLR is a simple Python package for running hierarchical regression. It was created because there wasn't any good options to run hierarchical regression without using programs like SPSS.
 
 It is built to work with Pandas dataframes, uses SciPy and statsmodels for all statistics and regression functions, and runs diagnostic tests for testing assumptions while plotting figures with matplotlib and seaborn.
 
