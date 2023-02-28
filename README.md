@@ -4,7 +4,34 @@
 
 HLR is a simple Python package for running hierarchical regression. It was created because there wasn't any good options to run hierarchical regression without using programs like SPSS.
 
+## Features
 It is built to work with Pandas dataframes, uses SciPy and statsmodels for all statistics and regression functions, and runs diagnostic tests for testing assumptions while plotting figures with matplotlib and seaborn.
+- Easy model creation and initiation with input data as Pandas dataframes
+- Diagnostic tests and plots for checking assumptions:
+    - Independence of Residuals
+        - Durbin Watson Test
+    - Linearity
+        - Pearson's Correlations for DV and each IV
+        - Rainbow Test
+        - Plot: Studentised Residuals vs Fitted Values
+        - Plot: Partial Regression Plots)
+    - Homoscedasticity
+        - Breusch Pagan Test
+        - F-test
+        - Goldfeld Quandt Test
+        - Plot: Studentised Residuals vs Fitted Values
+    - Multicollinearity
+        - Pairwise Correlations between DVs
+        - Variance Inflation Factor
+    - Outliers/Influence
+        - Standardised Residuals (> -3 & < +3)
+        - Cook's Distance
+        - Plot: Boxplot of Standardised Residuals
+        - Plot: Influence Plot with Cook's Distance
+    - Normality
+        - Mean of Residuals (approx = 0)
+        - Shapiro-Wilk Test
+        - Plot: Normal QQ Plot of Residuals)*
 
 ## Installation
 HLR is meant to be used with Python 3.x and has been tested on Python 3.7-3.9.
@@ -55,7 +82,37 @@ model = HLR.HLR_model(diagnostics=True, showfig=True, save_folder='results', ver
 model_results, reg_models = model.run(X=X, X_names=X_names, y=y)
 model.save_results(filename='nba_results', show_results=True)
 ```
-OUTPUT (without figures):
+#### Diagnostics output
+Diagnostic tests and plots for the step 1 of the model mentioned above.
+
+```
+Diagnostic tests - step1
+
+Independence of Residuals = PASSED (Durbin-Watson Test)
+Linearity = PASSED (Non-sig. linear relationship between DV and each IV)
+Linearity = PASSED (Rainbow Test)
+Homoscedasticity = FAILED (Bruesch Pagan Test)
+Homoscedasticity = FAILED (F-test for residual variance)
+Homoscedasticity = PASSED (Goldfeld Quandt Test)
+Multicollinearity = PASSED (High Pairwise correlations)
+Multicollinearity = PASSED (High Variance Inflation Factor)
+Outliers/Leverage/Influence = PASSED (Extreme Standardised Residuals)
+Outliers/Leverage/Influence = PASSED (Large Cook's Distance)
+Normality = PASSED (Mean of residuals not approx = 0)
+Normality = FAILED (Shapiro-Wilk Test)
+ 
+FURTHER INSPECTION REQUIRED -> 1/3 tests passed for assumption - Homoscedasticity
+FURTHER INSPECTION REQUIRED -> 1/2 tests passed for assumption - Normality
+
+...
+```
+
+![diagnostic_plot1](https://i.imgur.com/22kFc0F.jpeg)  |  ![diagnostic_plot2](https://i.imgur.com/j8l6qJs.png)
+:-------------------------:|:-------------------------:
+
+#### Results output
+HLR model output of all three steps of the model mentioned above.
+
 |   | Step |                           Predictors | N (observations) | DF (residuals) | DF (model) | R-squared |   F-value |  P-value (F) |           SSE |     SSTO |  MSE (model) | MSE (residuals) | MSE (total) |                                        Beta coefs |                             P-values (beta coefs) |                       Failed assumptions (check!) | R-squared change | F-value change | P-value (F change) |
 |---|-----:|-------------------------------------:|-----------------:|---------------:|-----------:|----------:|----------:|-------------:|--------------:|---------:|-------------:|----------------:|------------:|--------------------------------------------------:|--------------------------------------------------:|--------------------------------------------------:|-----------------:|---------------:|-------------------:|
 | 0 |    1 |                             [points] |            835.0 |          833.0 |        1.0 |  0.089297 | 81.677748 | 1.099996e-18 | 123292.827686 | 135382.0 | 12089.172314 |      148.010597 |  162.328537 | {'Constant': -13.846261266053896, 'points': 0.... | {'Constant': 0.023091997486255577, 'points': 1... |                     [Homoscedasticity, Normality] |              NaN |            NaN |                NaN |
