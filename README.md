@@ -1,6 +1,6 @@
 # HLR - Hierarchical Linear Regression in Python
 
-[![image](https://img.shields.io/pypi/v/HLR.svg)](https://pypi.python.org/pypi/HLR) [![image](https://img.shields.io/travis/teanijarv/HLR.svg)](https://travis-ci.com/teanijarv/HLR) [![Documentation Status](https://readthedocs.org/projects/hlr-hierarchical-linear-regression/badge/?version=latest)](https://hlr-hierarchical-linear-regression.readthedocs.io/en/latest/?version=latest)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7683809.svg)](https://doi.org/10.5281/zenodo.7683809) [![image](https://img.shields.io/pypi/v/HLR.svg)](https://pypi.python.org/pypi/HLR) [![image](https://img.shields.io/travis/teanijarv/HLR.svg)](https://travis-ci.com/teanijarv/HLR) [![Documentation Status](https://readthedocs.org/projects/hlr-hierarchical-linear-regression/badge/?version=latest)](https://hlr-hierarchical-linear-regression.readthedocs.io/en/latest/?version=latest)
 
 HLR is a simple Python package for running hierarchical regression. It was created because there wasn't any good options to run hierarchical regression without using programs like SPSS.
 
@@ -122,6 +122,28 @@ HLR model output of all three steps of the model mentioned above.
 #### Documentation
 Visit the documentation for more information.
  <https://hlr-hierarchical-linear-regression.readthedocs.io>
+
+## Citation
+Please use Zenodo DOI for citing the package in your work.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7683809.svg)](https://doi.org/10.5281/zenodo.7683809)
+
+#### Example
+
+Toomas Erik Anijärv, & Rory Boyle. (2023). teanijarv/HLR: v0.1.3 (v0.1.3). Zenodo. https://doi.org/10.5281/zenodo.7683809
+```
+@software{toomas_erik_anijarv_2023_7683809,
+  author       = {Toomas Erik Anijärv and
+                  Rory Boyle},
+  title        = {teanijarv/HLR: v0.1.3},
+  month        = feb,
+  year         = 2023,
+  publisher    = {Zenodo},
+  version      = {v0.1.3},
+  doi          = {10.5281/zenodo.7683809},
+  url          = {https://doi.org/10.5281/zenodo.7683809}
+}
+```
 
 ## Development
 HLR was created by [Toomas Erik Anijärv](https://www.toomaserikanijarv.com) using original code by [Rory Boyle](https://github.com/rorytboyle). The package is maintained by Toomas during his spare time, thereby contributions are more than welcome!
