@@ -189,8 +189,8 @@ def hierarchical_regression(X, X_names, y, diagnostics=True, save_folder='result
         # Run diagnostic tests for assumptions
         if diagnostics == True:
             assumptionsToCheck = diagnostic_tests.regression_diagnostics(
-                    currentStepModel, currentStepResults, y, currentX, saveto=saveto,
-                    showfig=showfig, verbose=verbose)
+                    currentStepModel, currentStepResults, y, currentX, X_names[ix], 
+                    saveto=saveto, showfig=showfig, verbose=verbose)
             currentStepResults.append(assumptionsToCheck)
         
         # Add the new results to the results list, same with the model object

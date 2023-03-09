@@ -8,6 +8,7 @@ Rory Boyle rorytboyle@gmail.com github.com/rorytboyle
 
 import statsmodels.api as sm
 import statsmodels.stats.outliers_influence as sm_diagnostics
+from statsmodels.tools.tools import add_constant
 import statsmodels.stats as sm_stats
 import matplotlib.pyplot as plt
 import scipy as scipy
@@ -15,7 +16,7 @@ import pandas as pd
 import seaborn as sns
 import os, sys
 
-def regression_diagnostics(model, result, y, X, saveto='results', showfig=False, verbose=True):
+def regression_diagnostics(model, result, y, X, X_names, saveto='results', showfig=False, verbose=True):
     """Runs formal diagnostic tests for linear regression and creates plots for
     further inspection. Outputs a summary text file listing the failed
     diagnostic tests and a list of assumptions that require further inspection.
@@ -198,7 +199,7 @@ def regression_diagnostics(model, result, y, X, saveto='results', showfig=False,
         pairwise_corr = X.corr()
         pairwise_corr = pairwise_corr[pairwise_corr != 1]  # make diagonals=nan
         # If pairwise correlations < 0.7, the test is passed and vice versa
-        high_pairwise_corr = pairwise_corr[pairwise_corr >= 0.3]
+        high_pairwise_corr = pairwise_corr[pairwise_corr >= 0.7]
         if high_pairwise_corr.isnull().all().all():
             diagnostics['high_pairwise_correlations_passed'] = 'Yes'
         else:
@@ -210,14 +211,15 @@ def regression_diagnostics(model, result, y, X, saveto='results', showfig=False,
     assumptionTests['high_pairwise_correlations_passed'] = 'Multicollinearity'
     formalNames['high_pairwise_correlations_passed'] = 'High Pairwise correlations'
 
-    ### (7) Variance Inflation Factors (VIF) < 10
+    ### (7) Variance Inflation Factors (VIF) < 5
 
     # If there are multiple predictors (IVs), find VIFs between IVs
     if len(X.columns) > 1:
+        X_withconst = add_constant(X)
         vif = pd.DataFrame()
         vif['VIF'] = [sm_stats.outliers_influence.variance_inflation_factor(
-                X.values, i) for i in range(X.shape[1])]
-        vif['features'] = X.columns
+                X_withconst.values, i) for i in range(X_withconst.shape[1])]
+        vif['features'] = X_withconst.columns
 
         # If no predictors have VIF > 5, the test is passed
         if ((vif['VIF'] < 5).all()):
@@ -234,7 +236,7 @@ def regression_diagnostics(model, result, y, X, saveto='results', showfig=False,
     # Link test to assumption
     assumptionTests['VIF_passed'] = 'Multicollinearity'
     formalNames['VIF_passed'] = 'High Variance Inflation Factor'
-
+    
     ###### ASSUMPTION V - OUTLIERS
 
     ### (8) Extreme Strandardised Residuals
@@ -374,10 +376,10 @@ def regression_diagnostics(model, result, y, X, saveto='results', showfig=False,
 
     sns.set_theme(style="whitegrid")
     fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(15, 15))
+    suptitle = fig.suptitle('Diagnostic Plots for {} - {}'.format(step, X_names), y=0.92)
 
     ### PLOT 1 - STUDENTISED RESIDUALS VS FITTED VALUES 
     # Used to inspect linearity and homoscedasticity
-
     # Get values for the plot 1
     student_resid = influence_df['student_resid']
     fitted_vals = model.fittedvalues
@@ -397,13 +399,11 @@ def regression_diagnostics(model, result, y, X, saveto='results', showfig=False,
 
     ### PLOT 2 - NORMAL QQ PLOT OF RESIDUALS
     # Used to inspect normality
-
     sm.qqplot(ax=axs[0][1], data=model.resid, fit=True, line='45')
     axs[0][1].set_title('Normal QQ Plot of Residuals')
 
     ### PLOT 3 - INFLUENCE PLOT WITH COOK'S DISTANCE
     # Used to inspect influence
-
     sm.graphics.influence_plot(model, ax=axs[1][0], criterion="cooks")
     axs[1][0].set_title('Influence plot')
     axs[1][0].set_xlabel('H leverage')
@@ -419,7 +419,7 @@ def regression_diagnostics(model, result, y, X, saveto='results', showfig=False,
     
     ### SAVE ALL THE PLOTS ABOVE AS A SUBPLOT
     figName = saveto + '/' + step + '_diagnostictests_plots.png'
-    plt.savefig(figName, dpi=300)
+    plt.savefig(figName, dpi=300, bbox_extra_artists=(suptitle,), bbox_inches="tight")
     if showfig==True:
         plt.show()
     else:
@@ -427,14 +427,21 @@ def regression_diagnostics(model, result, y, X, saveto='results', showfig=False,
 
     ### PLOT 5 - PARTIAL REGRESSION PLOTS
     # Used to inspect linearity
-
-    # Partial regression plots
-    fig_partRegress = plt.figure(figsize=(12, 8))
+    if len(X.columns) == 1:
+        fig_partRegress = plt.figure(figsize=(15, 5))
+    elif len(X.columns) <= 3:
+        fig_partRegress = plt.figure(figsize=(15, 10))
+    elif len(X.columns) <= 5:
+        fig_partRegress = plt.figure(figsize=(15, 15))
+    elif len(X.columns) > 5:
+        fig_partRegress = plt.figure(figsize=(15, 20))
     sys.stdout = open(os.devnull, 'w') # disable print for following function
     fig_partRegress = sm.graphics.plot_partregress_grid(model, fig=fig_partRegress)
     sys.stdout = sys.__stdout__ 
+    suptitle = fig_partRegress.suptitle('Partial Regression Plots for {} - {}'.format(step, X_names), y=1)
+    fig_partRegress.tight_layout()
     figName = saveto + '/' + step + '_partial_regression_plots.png'
-    fig_partRegress.savefig(figName, dpi=300)
+    fig_partRegress.savefig(figName, dpi=300, bbox_extra_artists=(suptitle,), bbox_inches="tight")
     if showfig==True:
         plt.show()
     else:
