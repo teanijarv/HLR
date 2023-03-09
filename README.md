@@ -130,18 +130,18 @@ Please use Zenodo DOI for citing the package in your work.
 
 #### Example
 
-Toomas Erik Anijärv, & Rory Boyle. (2023). teanijarv/HLR: v0.1.3 (v0.1.3). Zenodo. https://doi.org/10.5281/zenodo.7683809
+Toomas Erik Anijärv, & Rory Boyle. (2023). teanijarv/HLR: v0.1.4 (v0.1.4). Zenodo. https://doi.org/10.5281/zenodo.7683808
 ```
 @software{toomas_erik_anijarv_2023_7683809,
   author       = {Toomas Erik Anijärv and
                   Rory Boyle},
-  title        = {teanijarv/HLR: v0.1.3},
+  title        = {teanijarv/HLR: v0.1.4},
   month        = feb,
   year         = 2023,
   publisher    = {Zenodo},
-  version      = {v0.1.3},
+  version      = {v0.1.4},
   doi          = {10.5281/zenodo.7683809},
-  url          = {https://doi.org/10.5281/zenodo.7683809}
+  url          = {https://doi.org/10.5281/zenodo.7683808}
 }
 ```
 
