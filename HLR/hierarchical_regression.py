@@ -9,6 +9,8 @@ Rory Boyle rorytboyle@gmail.com github.com/rorytboyle
 import statsmodels.api as sm
 import scipy as scipy
 import pandas as pd
+import numpy as np
+import pingouin as pg
 import os
 
 from HLR import diagnostic_tests
@@ -35,7 +37,7 @@ def linear_reg(X, X_names, y):
     """
     # Run linear regression & add column of ones to X to serve as intercept
     model = sm.OLS(y, sm.add_constant(X)).fit()
-     
+    
     # Extract results from statsmodels.OLS object
     results = [X_names, model.nobs, model.df_resid, model.df_model,
                model.rsquared, model.fvalue, model.f_pvalue, model.ssr,
@@ -53,11 +55,66 @@ def linear_reg(X, X_names, y):
     p_values = {}
     for ix, coeff in enumerate(model.params):
         coeffs[namesCopy[ix]] = coeff
-        p_values[namesCopy[ix]] = model.pvalues[ix]
-        
-    results.append(coeffs)
-    results.append(p_values)
+        p_values[namesCopy[ix]] = model.pvalues[ix]    
+
+    # 26/03/2023 (Jules) - Standardised beta coefficients calculated and appended
+    # Std for predictors in step calculated, and std of outcome set to length of predictors
+    # Conversion factor created (std x/std y), applied to each coefficient and zipped back to dictionary of predictors
     
+    std_x = pd.Series(np.std(X)).to_list() # 25/03/23 dictionary to store standard deviation of predictor variables
+    std_y = pd.Series(np.std(y)).to_list()  # 25/03/23 calculate standard deviation of outcome
+    std_y = std_y*len(std_x)
+    conversion = [x / y for x, y in zip(std_x, std_y)]
+
+    coeffs_list = coeffs.copy()
+    coeffs_list.pop('Constant')
+    coeffs_keys, coeffs_values = zip(*coeffs_list.items())
+    beta_conversion = [b * c for b,c in zip(coeffs_values, conversion)]
+    std_coeffs = dict(zip(coeffs_keys, beta_conversion)) # 25/03/23 dictionary to store beta_coefficients
+
+    # 05/04/2023 - Calculate the partial and semi-partial (part in SPSS) correlations for each X value with y, while holding other X values as covariates
+    # Initialize an array to store partial and semi-partial correlation values
+    x_cols = [X.columns.tolist()]
+    semi_partial_correlations = np.zeros(len(x_cols[0]))
+    partial_correlations = np.zeros(len(x_cols[0]))
+
+    for i in range(len(x_cols[0])):
+        # Create a mask to exclude the current variable from the covariates
+        mask = [True] * len(x_cols[0])
+        mask[i] = False
+        
+        #Concat X and Y dataframes
+        Xy_temp = pd.concat([X, y], axis=1)
+        
+        # Extract the current variable (x) from xx
+        xx = x_cols[0][i]
+
+        # Extract the remaining variables (covariates) from xx
+        covariates = [x_cols[0][j] for j in range(len(x_cols[0])) if mask[j]]
+ 
+        # Calculate partial and semi-partial values and assign to array
+        semi_partial_corr = pg.partial_corr(data = Xy_temp, x=xx, y=y.columns[0], x_covar=covariates)
+        partial_corr = pg.partial_corr(data = Xy_temp, x=xx, y=y.columns[0], covar=covariates)
+        semi_partial_correlations[i] = semi_partial_corr['r']
+        partial_correlations[i] = partial_corr['r']
+        
+       
+    # Create dict to zip variables names to values
+    dict_partial = dict(zip(coeffs_keys, partial_correlations)) # 25/03/23 dictionary to store beta_coefficients
+    dict_semi_partial = dict(zip(coeffs_keys, semi_partial_correlations)) # 25/03/23 dictionary to store beta_coefficients
+
+    # Square semi partial values to get unique variance accounted for.\
+    unique_var = (semi_partial_correlations*semi_partial_correlations)*100
+    dict_unique_var = dict(zip(coeffs_keys, unique_var)) # 25/03/23 dictionary to store beta_coefficients
+
+    # Append to results
+    results.append(coeffs)
+    results.append(p_values)  
+    results.append(std_coeffs)
+    results.append(dict_partial)
+    results.append(dict_semi_partial)
+    results.append(dict_unique_var)
+
     return results, model
 
 def calculate_change_stats(model_stats):
@@ -95,11 +152,14 @@ def calculate_change_stats(model_stats):
     
     # calculate f change - formula from here: 
     f_change = []
+    f_change_pval = []
     for step in range(0, num_steps-1):
         # numerator of f change formula
+        # 24/03/2023 Predictor change variable created
+        predictor_change = len(model_stats.iloc[step+1]['Predictors']) - len(model_stats.iloc[step]['Predictors'])
+        
         # (r_sq change / number of predictors added)
-        f_change_numerator = r_sq_change[step] / (len(model_stats.iloc[step+1]['Predictors'])
-                                                  - len(model_stats.iloc[step]['Predictors']))
+        f_change_numerator = r_sq_change[step] / predictor_change
         # denominator of f change formula
         # (1 - step2 r_sq) / (num obs - number of predictors - 1)
         f_change_denominator = ((1 - model_stats.iloc[step+1]['R-squared']) /
@@ -107,10 +167,12 @@ def calculate_change_stats(model_stats):
         # compute f change
         f_change.append(f_change_numerator / f_change_denominator)
         
-    # calculate pvalue of f change
-    f_change_pval = [scipy.stats.f.sf(f_change[step], 1,
-                                      model_stats.iloc[step+1]['DF (residuals)'])
-                     for step in range(0, num_steps-1)]
+        # calculate pvalue of f change
+        # 24/03/2023 Difference in predictors/step added as df1 (originally had 1)
+        # 05/04/2023 p-value for f change fixed (brought function to the for loop)
+        f_change_pval_temp = scipy.stats.f.sf(f_change[step], predictor_change, 
+                                        model_stats.iloc[step+1]['DF (residuals)'])
+        f_change_pval.append(f_change_pval_temp)
     
     return [r_sq_change, f_change, f_change_pval]
 
@@ -198,17 +260,20 @@ def hierarchical_regression(X, X_names, y, diagnostics=True, save_folder='result
         reg_models.append(['Step ' + str(ix+1), currentStepModel])
         
     # Add the results to model_stats dataframe and name the columns
+    # 26/03/2023 (Jules) - Std beta coefs added
     model_stats = pd.DataFrame(results)
     if diagnostics == True:
         model_stats.columns = ['Step', 'Predictors', 'N (observations)', 'DF (residuals)',
                             'DF (model)', 'R-squared', 'F-value', 'P-value (F)', 'SSE', 'SSTO',
                             'MSE (model)', 'MSE (residuals)', 'MSE (total)', 'Beta coefs',
-                            'P-values (beta coefs)', 'Failed assumptions (check!)']
+                            'P-values (beta coefs)','Std Beta coefs', 'Partial Correlation', 
+                            'Semi-partial Correlation', 'Unique Variance %' , 'Failed assumptions (check!)']
     else:
         model_stats.columns = ['Step', 'Predictors', 'N (observations)', 'DF (residuals)',
                             'DF (model)', 'R-squared', 'F-value', 'P-value (F)', 'SSE', 'SSTO',
                             'MSE (model)', 'MSE (residuals)', 'MSE (total)', 'Beta coefs',
-                            'P-values (beta coefs)']
+                            'P-values (beta coefs)','Std Beta coefs', 'Partial Correlation', 
+                            'Semi-partial Correlation', 'Unique Variance %'] 
     
     # Create change results by calculating r-sq change, f change, p-value of f change between steps
     change_results = calculate_change_stats(model_stats)

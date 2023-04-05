@@ -91,7 +91,7 @@ def regression_diagnostics(model, result, y, X, X_names, saveto='results', showf
 
     # Calculate the Durbin-Watson statistic
     diagnostics['durbin_watson_stat'] = sm_stats.stattools.durbin_watson(
-            model.resid, axis=0)
+           model.resid, axis=0)
     # If the statistic is between 1.5-2.5, the test is passed
     if diagnostics['durbin_watson_stat'] >= 1.5 and diagnostics[
             'durbin_watson_stat'] <= 2.5:
@@ -373,10 +373,7 @@ def regression_diagnostics(model, result, y, X, X_names, saveto='results', showf
         high_pairwise_corr.to_csv(pairwiseCorrName)
 
     ###### MAKE AND SAVE PLOTS
-
-    sns.set_theme(style="whitegrid")
-    fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(15, 15))
-    suptitle = fig.suptitle('Diagnostic Plots for {} - {}'.format(step, X_names), y=0.92)
+    #29/03/2023 - 2 x 2 figure subplot removed and figures now saved individually
 
     ### PLOT 1 - STUDENTISED RESIDUALS VS FITTED VALUES 
     # Used to inspect linearity and homoscedasticity
@@ -388,44 +385,61 @@ def regression_diagnostics(model, result, y, X, X_names, saveto='results', showf
                                              axis=1)
     # Plot with a LOWESS (Locally Weighted Scatterplot Smoothing) line 
     # A relativelty straight LOWESS line indicates a linear model is reasonable
-    sns.residplot(ax=axs[0][0], data=df_residfitted,
+    fig, ax = plt.subplots()
+    sns.residplot(ax=ax, data=df_residfitted,
             x='fitted_vals', y='student_resid', lowess=True,
             scatter_kws={'alpha': 0.8},
             line_kws={'color': 'red', 'lw': 1, 'alpha': 1})
-    axs[0][0].set(ylim=(-3.5, 3.5))
-    axs[0][0].set_title('Residuals vs Fitted')
-    axs[0][0].set_xlabel('Fitted values')
-    axs[0][0].set_ylabel('Studentised Residuals')
+    ax.set(ylim=(-3.5, 3.5))
+    ax.set_title('Residuals vs Fitted')
+    ax.set_xlabel('Fitted values')
+    ax.set_ylabel('Studentised Residuals')
+
+    figName = saveto + '/' + step + '_studresid_plots.png'
+    plt.savefig(figName, dpi=300, bbox_inches="tight")
 
     ### PLOT 2 - NORMAL QQ PLOT OF RESIDUALS
     # Used to inspect normality
-    sm.qqplot(ax=axs[0][1], data=model.resid, fit=True, line='45')
-    axs[0][1].set_title('Normal QQ Plot of Residuals')
+    fig, ax = plt.subplots()
+    sm.qqplot(ax=ax, data=model.resid, fit=True, line='45')
+    ax.set_title('Normal QQ Plot of Residuals')
+    figName = saveto + '/' + step + '_QQ_plots.png'
+    plt.savefig(figName, dpi=300, bbox_inches="tight")
 
     ### PLOT 3 - INFLUENCE PLOT WITH COOK'S DISTANCE
     # Used to inspect influence
-    sm.graphics.influence_plot(model, ax=axs[1][0], criterion="cooks")
-    axs[1][0].set_title('Influence plot')
-    axs[1][0].set_xlabel('H leverage')
-    axs[1][0].set_ylabel('Studentised Residuals')
+    fig, ax = plt.subplots()
+    sm.graphics.influence_plot(model, ax=ax, criterion="cooks")
+    ax.set_title('Influence plot')
+    ax.set_xlabel('H leverage')
+    ax.set_ylabel('Studentised Residuals')
+    figName = saveto + '/' + step + '_influence_plots.png'
+    plt.savefig(figName, dpi=300, bbox_inches="tight")
 
     ### PLOT 4 - BOX PLOT OF STANDARDISED RESIDUALS
     # Used to inspect outliers (residuals)
-    outlier_fig = sns.boxplot(ax=axs[1][1], y=influence_df['standard_resid'])
-    outlier_fig = sns.swarmplot(ax=axs[1][1], y=influence_df['standard_resid'], color="red")
-    outlier_fig.axes.set(ylim=(-3.5, 3.5))
-    outlier_fig.axes.set_title('Boxplot of Standardised Residuals')
+    fig, ax = plt.subplots()
+    outlier_fig = sns.boxplot(ax=ax, y=influence_df['standard_resid'])
+    outlier_fig = sns.swarmplot(ax=ax, y=influence_df['standard_resid'], color="red")
+    outlier_fig.axes.set(title = 'Boxplot of  Standardised Residuals', ylabel='Standardized Residuals', ylim=(-3.5, 3.5))
     residBoxplot = outlier_fig.get_figure()  # get figure to save
-    
-    ### SAVE ALL THE PLOTS ABOVE AS A SUBPLOT
-    figName = saveto + '/' + step + '_diagnostictests_plots.png'
-    plt.savefig(figName, dpi=300, bbox_extra_artists=(suptitle,), bbox_inches="tight")
+    figName = saveto + '/' + step + '_box_plots.png'
+    plt.savefig(figName, dpi=300, bbox_inches="tight")
+    plt.show()  
+
+    ### PLOT 5 - HISTOGRAM OF STANDARDISED RESIDUAL
+    plot = sns.histplot(data=influence_df, x='standard_resid', kde=True, bins=16) # you may select the no. of bins
+    plot.set(title = 'Histogram of Standardised Residuals', xlabel='Standardized Residuals', ylabel='Frequency', xlim=(-3.5, 3.5))
+
+    figName = saveto + '/' + step + '_histogram_plots.png'
+    plt.savefig(figName, dpi=300, bbox_inches="tight")
+
     if showfig==True:
         plt.show()
     else:
         plt.close()
-
-    ### PLOT 5 - PARTIAL REGRESSION PLOTS
+    
+    ### PLOT 6 - PARTIAL REGRESSION PLOTS
     # Used to inspect linearity
     if len(X.columns) == 1:
         fig_partRegress = plt.figure(figsize=(15, 5))
