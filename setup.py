@@ -15,7 +15,8 @@ requirements = ['Click>=7.0',
                 'pandas>=1.3.5',
                 'matplotlib>=3.5.2',
                 'seaborn>=0.11',
-                'statsmodels>=0.13']
+                'statsmodels>=0.13',
+                'pingouin>=0.5.3']
 
 test_requirements = ['pytest>=3']
 
@@ -50,6 +51,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/teanijarv/HLR',
-    version='0.1.4',
+    version='0.1.5',
     zip_safe=False,
 )

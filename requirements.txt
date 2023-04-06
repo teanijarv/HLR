@@ -4,3 +4,4 @@ pandas==1.3.5
 matplotlib==3.5.2
 seaborn==0.11.2
 statsmodels==0.13.2
+pingouin==0.5.3

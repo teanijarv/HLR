@@ -1,6 +1,6 @@
 # HLR - Hierarchical Linear Regression in Python
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7683809.svg)](https://doi.org/10.5281/zenodo.7683809) [![image](https://img.shields.io/pypi/v/HLR.svg)](https://pypi.python.org/pypi/HLR) [![image](https://img.shields.io/travis/teanijarv/HLR.svg)](https://travis-ci.com/teanijarv/HLR) [![Documentation Status](https://readthedocs.org/projects/hlr-hierarchical-linear-regression/badge/?version=latest)](https://hlr-hierarchical-linear-regression.readthedocs.io/en/latest/?version=latest)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7683809.svg)](https://doi.org/10.5281/zenodo.7683809) [![image](https://img.shields.io/pypi/v/HLR.svg)](https://pypi.python.org/pypi/HLR) [![Build Status](https://app.travis-ci.com/teanijarv/HLR.svg?branch=main)](https://app.travis-ci.com/teanijarv/HLR) [![Documentation Status](https://readthedocs.org/projects/hlr-hierarchical-linear-regression/badge/?version=latest)](https://hlr-hierarchical-linear-regression.readthedocs.io/en/latest/?version=latest)
 
 HLR is a simple Python package for running hierarchical regression. It was created because there wasn't any good options to run hierarchical regression without using programs like SPSS.
 
@@ -41,6 +41,7 @@ HLR is meant to be used with Python 3.x and has been tested on Python 3.7-3.9.
 - [SciPy](https://www.scipy.org/)
 - [Pandas](https://pandas.pydata.org/)
 - [statsmodels](https://www.statsmodels.org/)
+- [pingouin](https://pingouin-stats.org/)
 - [matplotlib](https://matplotlib.org/)
 - [seaborn](https://seaborn.pydata.org/)
 
@@ -158,6 +159,7 @@ Would be great if someone with more experience with packages would contribute wi
 #### Contributors
 [Toomas Erik Anijärv](https://github.com/teanijarv)
 [Rory Boyle](https://github.com/rorytboyle)
+[Jules Mitchell](https://github.com/JulesMitchell)
 
 #### Credits
 This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage) project template.

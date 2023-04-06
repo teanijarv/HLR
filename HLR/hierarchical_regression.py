@@ -72,7 +72,8 @@ def linear_reg(X, X_names, y):
     beta_conversion = [b * c for b,c in zip(coeffs_values, conversion)]
     std_coeffs = dict(zip(coeffs_keys, beta_conversion)) # 25/03/23 dictionary to store beta_coefficients
 
-    # 05/04/2023 - Calculate the partial and semi-partial (part in SPSS) correlations for each X value with y, while holding other X values as covariates
+    # 05/04/2023 - Calculate the partial and semi-partial (defined 'part' in SPSS) correlations
+    # for each X value with y, while holding other X values as covariates
     # Initialize an array to store partial and semi-partial correlation values
     x_cols = [X.columns.tolist()]
     semi_partial_correlations = np.zeros(len(x_cols[0]))
@@ -225,6 +226,10 @@ def hierarchical_regression(X, X_names, y, diagnostics=True, save_folder='result
         MSE (total) = total mean square error
         Beta coefs = coefficient values for intercept and predictors
         P-values (beta coefs) = p-values for intercept and predictors
+        Std Beta coefs = standardised beta coefficients for intercept and predictors
+        Partial correlation = partial correlation for each X value with y
+        Semi-partial correlation = semi-partial correlation for each X value with y
+        Unique Variance % = squared semi-partial correlation for unique variance of predictors
         R-squared change = r-squared change for model (Step 2 r-sq - Step 1 r-sq)
         F-value change = f change for model (Step 2 f - Step 1 f)
         P-value (F change) = p-value of f-change of model
