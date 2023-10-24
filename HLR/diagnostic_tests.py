@@ -425,7 +425,11 @@ def regression_diagnostics(model, result, y, X, X_names, saveto='results', showf
     residBoxplot = outlier_fig.get_figure()  # get figure to save
     figName = saveto + '/' + step + '_box_plots.png'
     plt.savefig(figName, dpi=300, bbox_inches="tight")
-    plt.show()  
+    
+    if showfig==True:
+        plt.show()
+    else:
+        plt.close()
 
     ### PLOT 5 - HISTOGRAM OF STANDARDISED RESIDUAL
     plot = sns.histplot(data=influence_df, x='standard_resid', kde=True, bins=16) # you may select the no. of bins
