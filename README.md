@@ -118,7 +118,7 @@ Model Level 2 Diagnostics:
 :-------------------------:|:-------------------------:
 
 #### Documentation (WIP)
-Documentation is currently work in progress.
+Find more comprehensive overview of the usage of HLR.
 
  <https://hlr-hierarchical-linear-regression.readthedocs.io>
 

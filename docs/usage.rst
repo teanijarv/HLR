@@ -41,6 +41,7 @@ Initialize HLR & generate summary report
      hlr.summary()
 
 Output:
+
 +--------------+-------------------------------------------------------+-------------------+----------------+------------+------------+-----------+----------------+-----------------+-----------------+-------------+-----------------+---------------------------+---------------------+--------------------------------+----------------------------------+----------------------------------+------------------+----------------+--------------------------+
 | Model Level  | Predictors                                            | N (observations)  | DF (residuals) | DF (model) | R-squared  | F-value   | P-value (F)    | SSR             | SSTO            | MSE (model) | MSE (residuals) | MSE (total)               | Beta coefs         | P-values (beta coefs)          | Std Beta coefs                  | Partial correlations           | Semi-partial correlations       | Unique variance % | R-squared change | F-value change          | P-value (F-value change) |
 +==============+=======================================================+===================+================+============+============+===========+================+=================+=================+=============+=================+===========================+=====================+================================+==================================+==================================+==================+==================+==========================+
@@ -59,6 +60,7 @@ Run diagnostics for testing assumptions
      diagnostics_dict = hlr.diagnostics(verbose=True)
 
 Output:
+
 .. code-block:: text
 
      Model Level 1 Diagnostics:
@@ -115,6 +117,7 @@ Plotting options for all model levels
      hlr.plot_partial_regression()
 
 Output:
+
 .. image:: /images/plot_studentized_residuals_vs_fitted.png
    :alt: plot_studentized_residuals_vs_fitted
    :align: center
@@ -140,8 +143,9 @@ Output:
    :align: center
    :width: 50%
 
-(only Model Level 1 displayed, but actual output would plot all levels)
 .. image:: /images/plot_partial_regression.png
    :alt: plot_partial_regression
    :align: center
    :width: 50%
+
+(only Model Level 1 displayed, but actual output would plot all levels)
