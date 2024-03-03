@@ -18,13 +18,15 @@ from . import plots
 class HierarchicalLinearRegression:
     """Class for performing hierarchical linear regression analysis."""
 
-    def __init__(self, df, ivs_dict, dv):
+    def __init__(self, df, ivs_dict, dv, missing_data=None, ols_params=None):
         """Initializes the HierarchicalLinearRegression class.
 
         Args:
             df (pd.DataFrame): The dataset to be used in the regression.
             ivs_dict (dict): Dictionary mapping model levels to lists of independent variables.
             dv (str): The dependent variable.
+            missing_data (str, optional): Handling of missing data in OLS
+            ols_params (dict, optional): Optional parameters to pass to the OLS fit method.
         """
         if not isinstance(df, pd.DataFrame):
             raise ValueError("Data is not a pandas DataFrame.")
@@ -42,6 +44,16 @@ class HierarchicalLinearRegression:
             raise ValueError(f"{dv} is not a column in the DataFrame.")
         self.outcome_var = dv
 
+        if missing_data is not None:
+            if missing_data not in ['none', 'drop', 'raise']:
+                raise ValueError("missing_data must be either 'none', 'drop', or 'raise'.")
+        self.missing_data = missing_data if missing_data is not None else 'none'
+
+        if ols_params is not None:
+            if not isinstance(ols_params, dict):
+                raise ValueError("ols_params must be a dictionary.")
+        self.ols_params = ols_params if ols_params is not None else {}
+
     def fit_models(self):
         """Fits OLS models for each level of independent variables.
 
@@ -53,7 +65,7 @@ class HierarchicalLinearRegression:
             X = self.data[predictors]
             X_const = sm.add_constant(X)
             y = self.data[self.outcome_var]
-            model = sm.OLS(y, X_const).fit()
+            model = sm.OLS(y, X_const, missing=self.missing_data).fit(**self.ols_params)
             results[level] = model
         return results
 

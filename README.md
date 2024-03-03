@@ -47,12 +47,11 @@ X = {1: ['PTS'],
 # Define the outcome variable
 y = 'W'
 
-# Initiate the HLR object
-hreg = HierarchicalLinearRegression(df, X, y)
+# Initiate the HLR object (missing_data and ols_params are optional parameters)
+hreg = HierarchicalLinearRegression(df, X, y, missing_data='drop', ols_params=None)
 
-# Generate a summarised report as a dataframe which shows all linear regression models parameters and difference between the models
-summary_report = hreg.summary()
-display(summary_report)
+# Generate a summarised report of HLR
+hreg.summary()
 
 # Run diagnostics on all the models (displayed output below only shows the first model)
 hreg.diagnostics(verbose=True)
@@ -119,7 +118,8 @@ Model Level 2 Diagnostics:
 :-------------------------:|:-------------------------:
 
 #### Documentation (WIP)
-Docs is currently outdated - it currently displays the old version of the package. See the Usage above for all available functionality.
+Documentation is currently work in progress.
+
  <https://hlr-hierarchical-linear-regression.readthedocs.io>
 
 ## Citation
@@ -129,16 +129,15 @@ Please use Zenodo DOI for citing the package in your work.
 
 #### Example
 
-Toomas Erik Anijärv, & Rory Boyle. (2023). teanijarv/HLR: v0.2.0 (v0.2.0). Zenodo. https://doi.org/10.5281/zenodo.7683808
+Anijärv, T. E., Mitchell, J. and Boyle, R. (2024) ‘teanijarv/HLR: v0.2.1’. Zenodo. https://doi.org/10.5281/zenodo.7683808
 ```
 @software{toomas_erik_anijarv_2024_7683808,
-  author       = {Toomas Erik Anijärv and
-                  Rory Boyle},
-  title        = {teanijarv/HLR: v0.2.0},
+  author       = {Toomas Erik Anijärv, Jules Mitchell, Rory Boyle},
+  title        = {teanijarv/HLR: v0.2.1},
   month        = mar,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {v0.2.0},
+  version      = {v0.2.1},
   doi          = {10.5281/zenodo.7683808},
   url          = {https://doi.org/10.5281/zenodo.7683808}
 }
@@ -152,7 +151,6 @@ This program is provided with no warranty of any kind and it is still under deve
 #### To-do
 Would be great if someone with more experience with packages would contribute with testing and the whole deployment process. Also, if someone would want to write documentation, that would be amazing.
 - docs
-- testing
 - dict valus within df hard to read
 - ability to change OLS parameters
 - add t stats for coefficients
