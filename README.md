@@ -8,7 +8,7 @@ HLR is a simple Python package for running hierarchical linear regression.
 It is built to work with Pandas dataframes, uses SciPy, statsmodels and pingouin under the hood, and runs diagnostic tests for testing assumptions while plotting figures with matplotlib and seaborn.
 
 ## Installation
-HLR is meant to be used with Python 3.x and has been tested on Python 3.7-3.9.
+HLR is meant to be used with Python 3.x and has been tested on Python 3.9-3.12.
 
 #### Dependencies
 - [NumPy](https://numpy.org/)
