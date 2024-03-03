@@ -32,3 +32,9 @@ History
 ------------------
 
 * Option to modify the OLS parameters used in the HLR
+
+
+0.2.2 (2024-03-3)
+------------------
+
+* Updated documentation

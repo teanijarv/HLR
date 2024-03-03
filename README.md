@@ -8,7 +8,7 @@ HLR is a simple Python package for running hierarchical linear regression.
 It is built to work with Pandas dataframes, uses SciPy, statsmodels and pingouin under the hood, and runs diagnostic tests for testing assumptions while plotting figures with matplotlib and seaborn.
 
 ## Installation
-HLR is meant to be used with Python 3.x and has been tested on Python 3.9-3.12.
+HLR is meant to be used with Python 3.9 or above, and has been tested on Python 3.9-3.12.
 
 #### Dependencies
 - [NumPy](https://numpy.org/)
@@ -30,14 +30,14 @@ If you don’t have [pip](https://pip.pypa.io/) installed, this [Python installa
 
 ## Usage
 
-Importing the module and running hierarchical linear regression and summarising the results.
+Importing the module and running hierarchical linear regression, summarising the results, running assumption tests, and plotting.
 
 ```python
 import pandas as pd
 from HLR import HierarchicalLinearRegression
 
 # Example dataframe which includes some columns which are also mentioned below
-nba = pd.read_csv('example/NBA_train.csv')
+nba = pd.read_csv('NBA_train.csv')
 
 # Define the models for hierarchical regression including predictors for each model
 X = {1: ['PTS'], 
@@ -48,7 +48,7 @@ X = {1: ['PTS'],
 y = 'W'
 
 # Initiate the HLR object (missing_data and ols_params are optional parameters)
-hreg = HierarchicalLinearRegression(df, X, y, missing_data='drop', ols_params=None)
+hreg = HierarchicalLinearRegression(df, X, y, ols_params=None)
 
 # Generate a summarised report of HLR
 hreg.summary()
@@ -56,7 +56,7 @@ hreg.summary()
 # Run diagnostics on all the models (displayed output below only shows the first model)
 hreg.diagnostics(verbose=True)
 
-# Different plots
+# Different plots (see docs for more)
 hreg.plot_studentized_residuals_vs_fitted()
 hreg.plot_qq_residuals()
 hreg.plot_influence()
@@ -129,15 +129,15 @@ Please use Zenodo DOI for citing the package in your work.
 
 #### Example
 
-Anijärv, T. E., Mitchell, J. and Boyle, R. (2024) ‘teanijarv/HLR: v0.2.1’. Zenodo. https://doi.org/10.5281/zenodo.7683808
+Anijärv, T. E., Mitchell, J. and Boyle, R. (2024) ‘teanijarv/HLR: v0.2.2’. Zenodo. https://doi.org/10.5281/zenodo.7683808
 ```
 @software{toomas_erik_anijarv_2024_7683808,
   author       = {Toomas Erik Anijärv, Jules Mitchell, Rory Boyle},
-  title        = {teanijarv/HLR: v0.2.1},
+  title        = {teanijarv/HLR: v0.2.2},
   month        = mar,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {v0.2.1},
+  version      = {v0.2.2},
   doi          = {10.5281/zenodo.7683808},
   url          = {https://doi.org/10.5281/zenodo.7683808}
 }
@@ -151,7 +151,6 @@ This program is provided with no warranty of any kind and it is still under deve
 #### To-do
 Would be great if someone with more experience with packages would contribute with testing and the whole deployment process. Also, if someone would want to write documentation, that would be amazing.
 - dict valus within df hard to read
-- ability to change OLS parameters
 - add t stats for coefficients
 - give option for output only some columns not all
 - add regression type option (eg, for logistic regression)
