@@ -27,3 +27,8 @@ History
 ------------------
 
 * Overall project restructuring for optimisation
+
+0.2.1 (2024-03-3)
+------------------
+
+* Option to modify the OLS parameters used in the HLR

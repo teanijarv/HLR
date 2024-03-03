@@ -150,11 +150,11 @@ This program is provided with no warranty of any kind and it is still under deve
 
 #### To-do
 Would be great if someone with more experience with packages would contribute with testing and the whole deployment process. Also, if someone would want to write documentation, that would be amazing.
-- docs
 - dict valus within df hard to read
 - ability to change OLS parameters
 - add t stats for coefficients
 - give option for output only some columns not all
+- add regression type option (eg, for logistic regression)
 
 #### Contributors
 [Toomas Erik Anijärv](https://github.com/teanijarv)
