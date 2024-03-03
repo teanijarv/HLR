@@ -119,7 +119,7 @@ Model Level 2 Diagnostics:
 :-------------------------:|:-------------------------:
 
 #### Documentation (WIP)
-Visit the documentation for more information.
+Docs is currently outdated - it currently displays the old version of the package. See the Usage above for all available functionality.
  <https://hlr-hierarchical-linear-regression.readthedocs.io>
 
 ## Citation
@@ -129,9 +129,9 @@ Please use Zenodo DOI for citing the package in your work.
 
 #### Example
 
-Toomas Erik Anijärv, & Rory Boyle. (2023). teanijarv/HLR: v0.1.4 (v0.1.4). Zenodo. https://doi.org/10.5281/zenodo.7683808
+Toomas Erik Anijärv, & Rory Boyle. (2023). teanijarv/HLR: v0.2.0 (v0.2.0). Zenodo. https://doi.org/10.5281/zenodo.7683808
 ```
-@software{toomas_erik_anijarv_2023_7683809,
+@software{toomas_erik_anijarv_2024_7683808,
   author       = {Toomas Erik Anijärv and
                   Rory Boyle},
   title        = {teanijarv/HLR: v0.2.0},
