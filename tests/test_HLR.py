@@ -1,39 +1,25 @@
-#!/usr/bin/env python
-
-"""Tests for `HLR` package."""
-
 import pytest
+from HLR.regression import HierarchicalLinearRegression
+import pandas as pd
 
-from click.testing import CliRunner
+# Example test data
+df = pd.DataFrame({
+    'PTS': [120, 115, 130, 112, 104],
+    'ORB': [10, 11, 8, 10, 9],
+    'BLK': [5, 3, 6, 7, 4],
+    'W': [50, 45, 55, 47, 44]
+})
+X = {1: ['PTS'], 2: ['PTS', 'ORB'], 3: ['PTS', 'ORB', 'BLK']}
+y = 'W'
 
-from HLR import diagnostic_tests
-from HLR import hierarchical_regression
-from HLR import model
-from HLR import cli
+def test_model_initialization():
+    """Test initialization of HierarchicalLinearRegression model."""
+    hlr = HierarchicalLinearRegression(df, X, y)
+    assert hlr.data is not None
+    assert hlr.outcome_var == y
 
-
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
-
-
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
-
-
-def test_command_line_interface():
-    """Test the CLI."""
-    runner = CliRunner()
-    result = runner.invoke(cli.main)
-    assert result.exit_code == 0
-    assert 'HLR.cli.main' in result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+def test_fit_models():
+    """Test fitting models."""
+    hlr = HierarchicalLinearRegression(df, X, y)
+    model_results = hlr.fit_models()
+    assert len(model_results) == len(X)

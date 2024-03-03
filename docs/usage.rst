@@ -7,24 +7,33 @@ See GitHub repository for the example dataset and Jupyter Notebook.
 To use HLR - Hierarchical Linear Regression in a project::
 
     import pandas as pd
-    import os
-    import HLR
+    from HLR import HierarchicalLinearRegression
 
+    # Example dataframe which includes some columns which are also mentioned below
     nba = pd.read_csv('example/NBA_train.csv')
 
-    # List of dataframes of predictor variables for each step
-    X = [nba[['PTS']],
-        nba[['PTS', 'ORB']],
-        nba[['PTS', 'ORB', 'BLK']]]
+    # Define the models for hierarchical regression including predictors for each model
+    X = {1: ['PTS'], 
+         2: ['PTS', 'ORB'], 
+         3: ['PTS', 'ORB', 'BLK']}
 
-    # List of predictor variable names for each step
-    X_names = [['points'],
-            ['points', 'offensive_rebounds'], 
-            ['points', 'offensive_rebounds', 'blocks']]
+    # Define the outcome variable
+    y = 'W'
 
-    # Outcome variable as dataframe
-    y = nba[['W']]
+    # Initiate the HLR object
+    hreg = HierarchicalLinearRegression(df, X, y)
 
-    model = HLR.HLR_model(diagnostics=True, showfig=True, save_folder='results', verbose=True)
-    model_results, reg_models = model.run(X=X, X_names=X_names, y=y)
-    model.save_results(filename='nba_results', show_results=True)
+    # Generate a summarised report as a dataframe which shows all linear regression models parameters and difference between the models
+    summary_report = hreg.summary()
+    display(summary_report)
+
+    # Run diagnostics on all the models (displayed output below only shows the first model)
+    hreg.diagnostics(verbose=True)
+
+    # Different plots
+    hreg.plot_studentized_residuals_vs_fitted()
+    hreg.plot_qq_residuals()
+    hreg.plot_influence()
+    hreg.plot_std_residuals()
+    hreg.plot_histogram_std_residuals()
+    hreg.plot_partial_regression()

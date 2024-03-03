@@ -10,14 +10,12 @@ with open('README.md') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0',
-                'scipy>=1.7.3',
+requirements = ['scipy>=1.7.3',
                 'pandas>=1.3.5',
                 'matplotlib>=3.5.2',
                 'seaborn>=0.11',
                 'statsmodels>=0.13',
                 'pingouin>=0.5.3']
-
 test_requirements = ['pytest>=3']
 
 setup(
@@ -35,11 +33,6 @@ setup(
         'Programming Language :: Python :: 3.9',
     ],
     description="HLR - Hierarchical Linear Regression for Python",
-    entry_points={
-        'console_scripts': [
-            'HLR=HLR.cli:main',
-        ],
-    },
     install_requires=requirements,
     license="GNU General Public License v3",
     long_description_content_type='text/markdown',
@@ -51,6 +44,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/teanijarv/HLR',
-    version='0.1.5',
+    version='0.2.0',
     zip_safe=False,
 )

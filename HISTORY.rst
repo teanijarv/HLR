@@ -22,3 +22,8 @@ History
 * Added partial and semi-partial correlations (unique variance) to model output
 * Fixed F-change degrees of freedom calculation
 * Fixed F-change p-value calculation
+
+0.2.0 (2024-03-2)
+------------------
+
+* Overall project restructuring for optimisation

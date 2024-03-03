@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'HLR - Hierarchical Linear Regression'
-copyright = "2023, Toomas Erik Anijärv"
+copyright = "2024, Toomas Erik Anijärv"
 author = "Toomas Erik Anijärv"
 
 # The version info for the project you're documenting, acts as replacement
