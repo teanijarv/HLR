@@ -11,4 +11,5 @@ Development Lead
 Contributors
 ------------
 
-* Jules Mitchell <julesmitchell96@gmail.com>
+* Jules Mitchell
+* Cate Scanlon

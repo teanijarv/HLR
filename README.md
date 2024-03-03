@@ -162,3 +162,4 @@ Would be great if someone with more experience with packages would contribute wi
 [Toomas Erik Anijärv](https://github.com/teanijarv)
 [Rory Boyle](https://github.com/rorytboyle)
 [Jules Mitchell](https://github.com/JulesMitchell)
+[Cate Scanlon](https://github.com/catescanlon)
