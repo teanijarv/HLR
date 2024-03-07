@@ -1,6 +1,6 @@
 # HLR - Hierarchical Linear Regression in Python
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7683809.svg)](https://doi.org/10.5281/zenodo.7683809) [![image](https://img.shields.io/pypi/v/HLR.svg)](https://pypi.python.org/pypi/HLR) [![CI testing](https://github.com/teanijarv/HLR/actions/workflows/testing.yml/badge.svg)](https://github.com/teanijarv/HLR/actions/workflows/testing.yml) [![Documentation Status](https://readthedocs.org/projects/hlr-hierarchical-linear-regression/badge/?version=latest)](https://hlr-hierarchical-linear-regression.readthedocs.io/en/latest/?version=latest)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10792329.svg)](https://doi.org/10.5281/zenodo.10792329) [![image](https://img.shields.io/pypi/v/HLR.svg)](https://pypi.python.org/pypi/HLR) [![CI testing](https://github.com/teanijarv/HLR/actions/workflows/testing.yml/badge.svg)](https://github.com/teanijarv/HLR/actions/workflows/testing.yml) [![Documentation Status](https://readthedocs.org/projects/hlr-hierarchical-linear-regression/badge/?version=latest)](https://hlr-hierarchical-linear-regression.readthedocs.io/en/latest/?version=latest)
 
 HLR is a simple Python package for running hierarchical linear regression.
 
@@ -125,7 +125,7 @@ Find more comprehensive overview of the usage of HLR.
 ## Citation
 Please use Zenodo DOI for citing the package in your work.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7683809.svg)](https://doi.org/10.5281/zenodo.7683809)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10792329.svg)](https://doi.org/10.5281/zenodo.10792329)
 
 #### Example
 
