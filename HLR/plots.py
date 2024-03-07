@@ -1,3 +1,4 @@
+"""Functions for plotting."""
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -45,5 +46,4 @@ def create_subplot_partial_regression(model, fig_size, level):
     sm.graphics.plot_partregress_grid(model, fig=fig)
     fig.suptitle(f'Partial Regression Plots (Model Level {level})', y=1)
 
-    plt.tight_layout()
-    plt.show()
+    return fig

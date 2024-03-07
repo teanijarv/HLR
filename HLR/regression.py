@@ -1,10 +1,4 @@
-"""Functions for running hierarchical linear regression.
-
-Authors
--------
-Toomas Erik Anijärv toomaserikanijarv@gmail.com github.com/teanijarv
-Rory Boyle rorytboyle@gmail.com github.com/rorytboyle
-"""
+"""HLR - Hierarchical Linear Regression."""
 import pandas as pd
 import statsmodels.api as sm
 import scipy.stats
@@ -215,7 +209,11 @@ class HierarchicalLinearRegression:
         return diagnostics_results
     
     def plot_studentized_residuals_vs_fitted(self):
-        """Plots studentized residuals against fitted values for all model levels."""
+        """Plots studentized residuals against fitted values for all model levels.
+        
+        Returns:
+            matplotlib.figure.Figure: The matplotlib figure object.
+        """
         model_results = self.fit_models()
         num_levels = len(model_results)
         
@@ -229,9 +227,15 @@ class HierarchicalLinearRegression:
 
         plt.tight_layout()
         plt.show()
+
+        return fig
     
     def plot_qq_residuals(self):
-        """Plots Normal QQ Plots for all model levels."""
+        """Plots Normal QQ Plots for all model levels.
+        
+        Returns:
+            matplotlib.figure.Figure: The matplotlib figure object.
+        """
         model_results = self.fit_models()
         fig, axs = plt.subplots(len(model_results), 1, figsize=(8, 4 * len(model_results)))
         if len(model_results) == 1:
@@ -243,8 +247,14 @@ class HierarchicalLinearRegression:
         plt.tight_layout()
         plt.show()
 
+        return fig
+
     def plot_influence(self):
-        """Plots Influence Plots for all model levels."""
+        """Plots Influence Plots for all model levels.
+        
+        Returns:
+            matplotlib.figure.Figure: The matplotlib figure object.
+        """
         model_results = self.fit_models()
         fig, axs = plt.subplots(len(model_results), 1, figsize=(8, 4 * len(model_results)))
         if len(model_results) == 1:
@@ -256,8 +266,14 @@ class HierarchicalLinearRegression:
         plt.tight_layout()
         plt.show()
 
+        return fig
+
     def plot_std_residuals(self):
-        """Plots Box Plots of Standardized Residuals for all model levels."""
+        """Plots Box Plots of Standardized Residuals for all model levels.
+        
+        Returns:
+            matplotlib.figure.Figure: The matplotlib figure object.
+        """
         model_results = self.fit_models()
         fig, axs = plt.subplots(len(model_results), 1, figsize=(8, 4 * len(model_results)))
         if len(model_results) == 1:
@@ -270,9 +286,15 @@ class HierarchicalLinearRegression:
 
         plt.tight_layout()
         plt.show()
+
+        return fig
     
     def plot_histogram_std_residuals(self):
-        """Plots Histogram of Standardized Residuals for all model levels."""
+        """Plots Histogram of Standardized Residuals for all model levels.
+        
+        Returns:
+            matplotlib.figure.Figure: The matplotlib figure object.
+        """
         model_results = self.fit_models()
         fig, axs = plt.subplots(len(model_results), 1, figsize=(8, 4 * len(model_results)))
         if len(model_results) == 1:
@@ -286,11 +308,21 @@ class HierarchicalLinearRegression:
         plt.tight_layout()
         plt.show()
 
+        return fig
+
     def plot_partial_regression(self):
-        """Plots Partial Regression Plots for all model levels."""
+        """Plots Partial Regression Plots for all model levels.
+        
+        Returns:
+            list: A list of matplotlib.figure.Figure objects, one for each model level.
+        """
         model_results = self.fit_models()
         num_ivs = max(len(ivs) for ivs in self.models.values())
         fig_size = (15, min(10, 5 * num_ivs))
 
+        fig_list = []
         for level, model in model_results.items():
-            plots.create_subplot_partial_regression(model, fig_size, level)
+            fig = plots.create_subplot_partial_regression(model, fig_size, level)
+            fig_list.append(fig)
+        
+        return fig_list

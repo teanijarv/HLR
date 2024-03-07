@@ -38,3 +38,8 @@ History
 ------------------
 
 * Updated documentation
+
+0.2.3 (2024-03-7)
+------------------
+
+* Added that the plotting functions return matplotlib figure object

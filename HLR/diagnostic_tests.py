@@ -1,11 +1,4 @@
-"""Functions for diagnostic tests to test for assumptions.
-
-Authors
--------
-Toomas Erik Anijärv toomaserikanijarv@gmail.com github.com/teanijarv
-Rory Boyle rorytboyle@gmail.com github.com/rorytboyle
-"""
-
+"""Functions for diagnostic tests to test for assumptions."""
 import scipy.stats
 import numpy as np
 from statsmodels.stats.stattools import durbin_watson

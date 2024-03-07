@@ -2,7 +2,7 @@
 
 __author__ = """Toomas Erik Anijärv"""
 __email__ = 'toomaserikanijarv@gmail.com'
-__version__ = '0.2.0'
+__version__ = '0.2.3'
 
 from .diagnostic_tests import (test_durbin_watson, 
                                test_pearsons_r,

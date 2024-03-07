@@ -57,12 +57,12 @@ hreg.summary()
 hreg.diagnostics(verbose=True)
 
 # Different plots (see docs for more)
-hreg.plot_studentized_residuals_vs_fitted()
-hreg.plot_qq_residuals()
-hreg.plot_influence()
-hreg.plot_std_residuals()
-hreg.plot_histogram_std_residuals()
-hreg.plot_partial_regression()
+fig1 = hreg.plot_studentized_residuals_vs_fitted()
+fig2 = hreg.plot_qq_residuals()
+fig3 = hreg.plot_influence()
+fig4 = hreg.plot_std_residuals()
+fig5 = hreg.plot_histogram_std_residuals()
+fig_list = hreg.plot_partial_regression()
 ```
 Output:
 |   | Model Level |                           Predictors | N (observations) | DF (residuals) | DF (model) | R-squared |   F-value |  P-value (F) |           SSE |     SSTO |  MSE (model) | MSE (residuals) | MSE (total) |                                        Beta coefs |                             P-values (beta coefs) |                       Failed assumptions (check!) | R-squared change | F-value change | P-value (F change) |
@@ -129,30 +129,29 @@ Please use Zenodo DOI for citing the package in your work.
 
 #### Example
 
-Anijärv, T. E., Mitchell, J. and Boyle, R. (2024) ‘teanijarv/HLR: v0.2.2’. Zenodo. https://doi.org/10.5281/zenodo.7683808
+Anijärv, T. E., Mitchell, J. and Boyle, R. (2024) ‘teanijarv/HLR: v0.2.3’. Zenodo. https://doi.org/10.5281/zenodo.7683808
 ```
 @software{toomas_erik_anijarv_2024_7683808,
   author       = {Toomas Erik Anijärv, Jules Mitchell, Rory Boyle},
-  title        = {teanijarv/HLR: v0.2.2},
+  title        = {teanijarv/HLR: v0.2.3},
   month        = mar,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {v0.2.2},
+  version      = {v0.2.3},
   doi          = {10.5281/zenodo.7683808},
   url          = {https://doi.org/10.5281/zenodo.7683808}
 }
 ```
 
 ## Development
-HLR was created by [Toomas Erik Anijärv](https://www.toomaserikanijarv.com) using original code by [Rory Boyle](https://github.com/rorytboyle). The package is maintained by Toomas during his spare time, thereby contributions are more than welcome!
+The HLR package was created and is maintained by [Toomas Erik Anijärv](https://www.toomaserikanijarv.com). It is updated during spare time, thereby contributions are more than welcome!
 
 This program is provided with no warranty of any kind and it is still under development. However, this code has been checked and validated against multiple same analyses conducted in SPSS.
 
 #### To-do
 Would be great if someone with more experience with packages would contribute with testing and the whole deployment process. Also, if someone would want to write documentation, that would be amazing.
-- dict valus within df hard to read
+- dict values within df hard to read
 - add t stats for coefficients
-- give option for output only some columns not all
 - add regression type option (eg, for logistic regression)
 
 #### Contributors

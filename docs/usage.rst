@@ -102,7 +102,7 @@ Plotting options for all model levels
 
 .. code-block:: python
 
-     hlr.plot_studentized_residuals_vs_fitted()
+     fig = hlr.plot_studentized_residuals_vs_fitted()
 
 Output:
 
@@ -113,7 +113,7 @@ Output:
 
 .. code-block:: python
 
-     hlr.plot_qq_residuals()
+     fig = hlr.plot_qq_residuals()
 
 Output:
 
@@ -124,7 +124,7 @@ Output:
 
 .. code-block:: python
 
-     hlr.plot_influence()
+     fig = hlr.plot_influence()
 
 Output:
 
@@ -135,7 +135,7 @@ Output:
 
 .. code-block:: python
 
-     hlr.plot_std_residuals()
+     fig = hlr.plot_std_residuals()
 
 Output:
 
@@ -146,7 +146,7 @@ Output:
 
 .. code-block:: python
 
-     hlr.plot_histogram_std_residuals()
+     fig = hlr.plot_histogram_std_residuals()
 
 Output:
 
@@ -157,7 +157,7 @@ Output:
 
 .. code-block:: python
 
-     hlr.plot_partial_regression()
+     fig_list = hlr.plot_partial_regression()
 
 Output:
 
@@ -166,4 +166,4 @@ Output:
    :align: center
    :width: 50%
 
-(only Model Level 1 displayed, but actual output would plot all levels)
+(the fig_list contains a fig for each Model Level; only Model Level 1 displayed (i.e., fig_list[0]))
