@@ -149,10 +149,9 @@ The HLR package was created and is maintained by [Toomas Erik Anijärv](https://
 This program is provided with no warranty of any kind and it is still under development. However, this code has been checked and validated against multiple same analyses conducted in SPSS.
 
 #### To-do
-Would be great if someone with more experience with packages would contribute with testing and the whole deployment process. Also, if someone would want to write documentation, that would be amazing.
-- dict values within df hard to read
-- add t stats for coefficients
-- add regression type option (eg, for logistic regression)
+- Better summary printing (something similar as statsmodels summary?)
+- Include t-statistics for the coefficients in the results
+- Add regression type option (e.g., logistic regression)?
 
 #### Contributors
 [Toomas Erik Anijärv](https://github.com/teanijarv)
