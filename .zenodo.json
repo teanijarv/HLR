@@ -1,0 +1,26 @@
+{
+  "creators": [
+    {
+      "affiliation": "Lund University",
+      "name": "Anijärv, Toomas Erik",
+      "orcid": "0000-0002-3650-4230",
+    },
+    {
+      "affiliation": "University of the Sunshine Coast",
+      "name": "Mitchell, Jules",
+      "orcid": "0000-0002-3086-7129",
+    },
+    {
+      "affiliation": "University of Pennsylvania",
+      "name": "Boyle, Rory",
+      "orcid": "0000-0003-0787-6892",
+    },
+  ],
+  "keywords": [
+    "statistics",
+    "regression",
+    "hierarchical-linear-regression"
+  ],
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "upload_type": "software"
+}
